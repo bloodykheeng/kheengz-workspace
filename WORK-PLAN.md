@@ -8,8 +8,8 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
 | Phase | What ships | Status |
 | --- | --- | --- |
 | **0. Foundation** | Workspace; Laravel 13 API and Next.js 16 app from the official installers; core packages installed and published; GiftNest foundation copied (ULIDs, audit trail, enums, serial counters, OTP, queues, Reverb, roles, dashboard shell, standard table, e2e) | **in progress** |
-| **1. MVP** | Shop profile and brand tokens; vendors (+ connect MarzPay); categories; products, variants, photos; stock per location; storefront (home, category, search, product, cart, Buy now, one-page checkout); MarzPay Mobile Money + pay on delivery; order tracking by phone; orders split per vendor; vendor delivery areas and riders; commission ledger and paying it; SMS; admin and vendor dashboards | next |
-| **2. Grow** | Coupons, reviews, wishlist, Meilisearch, vendor plans, card payments, returns, WhatsApp order button, pickup points | |
+| **1. MVP** | Shop types, brand, homepage sections and `<shop>.kheengz.com` (D19); product video and TikTok links (D20); share sheet, link previews, status cards, QR posters, source-tagged links (D21); shop profile and brand tokens; vendors with their payout number or bank account; categories; products, variants, photos; stock per location; storefront (home, category, search, product, cart, Buy now, one-page checkout); MarzPay and OlyCash (buyer picks) + pay on delivery; order tracking by phone; orders split per vendor; vendor delivery areas and riders; instant payouts with fees taken from the vendor's share (D22); what vendors owe from pay on delivery, and hiding unpaid shops (D14); SMS; admin and vendor dashboards | next |
+| **2. Grow** | Promo video maker, catalogue feeds, shoppable reels, own domains, resellers, AI listing from a photo (plan-shop-identity-and-marketing.md); coupons, reviews, wishlist, Meilisearch, vendor plans, card payments, returns, WhatsApp order button, pickup points | |
 | **3. Mobile and scale** | Expo app (buyer, then vendor); hosted multi-shop (tenancy); suppliers and purchase orders; same product from several vendors | |
 
 ## Phase 0 checklist
@@ -35,9 +35,6 @@ render, all foundation tests green. Then Phase 1 starts with the data model in p
 
 ## Still to settle (bloodykheeng)
 
-1. **Who carries the gateway fee** (MarzPay 3% / card 5%): taken from the vendor's payout (my view) or a buyer
-   service fee? (D13)
-2. **When payouts go out:** automatically once a day from Delivered orders (my view), or straight after each
-   payment? (D12)
-3. The exact commission percentage, which service fees, and the unpaid-debt limit before products hide (D13, D14).
-4. Walk-in sales recorded through a counter sale screen (D17)?
+1. The exact commission percentage, which service fees, and the unpaid-debt limit before products hide (D13, D14).
+2. Walk-in sales recorded through a counter sale screen (D17)?
+3. Shop identity: first shop types, video limits, `homenest.kheengz.com` (plan-shop-identity-and-marketing.md).

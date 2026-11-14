@@ -34,8 +34,9 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 ### D4. Commission: a percentage plus an optional fixed fee (delegated, from Bagisto and CS-Cart; refined by D13)
 - **Decision:** the marketplace sets a default **percentage** and an optional **fixed fee per vendor order**; any
   vendor can have their own rate instead (Bagisto: global rate + per-seller override; CS-Cart: percent + fixed fee
-  per vendor plan). Worked out on the **items' total, not the delivery fee** (delivery is the boda's). It becomes
-  owed when the vendor order is **Delivered**; a cancelled order owes nothing, a return reverses it.
+  per vendor plan). Worked out on the **items' total, not the delivery fee** (delivery is the boda's). Paid online: taken
+  from the payout at once (D22). Pay on delivery: owed when the order is **Delivered** (D14). A cancelled or
+  returned order gets its commission back.
   Vendor plans with a monthly fee (CS-Cart) come in Phase 2.
 - **Why:** "commission or a percent ... get idea from best market places like bagisto or cscart".
 
@@ -107,20 +108,13 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
     what is owed to vendors. Detail: `docs/olycash.md`, `docs/marzpay.md`.
   - Kheengz now holds buyers' money until it is paid out: a ledger per vendor (GiftNest's `transactions`), every
     payout a row, reconciled against MarzPay's `GET /transactions`.
-- **Proposed, to confirm:** *when* the money goes out. My view: **automatically once a day**, the vendor's balance
-  from orders marked **Delivered** in one payout. Two reasons. Paying before delivery means a refund can't be
-  taken back. And every payout costs UGX 1,000 or more (Mobile Money) or 5,000 or more (bank) from MarzPay, which is
-  20% of a UGX 5,000 basin sold on its own. A vendor can still ask for their balance at once, paying that fee.
+- **When:** right away, after each payment (settled in D22).
 
 ### D13. Fees: a commission on each sale, plus service fees (refines D4)
 - **Decision:** Kheengz deducts a **percentage of each sale** (set by the Admin; "0.g%" in the message, exact
   figure to set) plus optional **service fees**. Per-vendor rates override the default (D4).
 - **Why:** "we shall deduct a percentage on transactions ie 0.g% also things like service fees etc".
-- **To confirm, because the money must add up:** MarzPay keeps **3%** of every Mobile Money collection (5% card),
-  more than a commission under 1%. Unless someone else carries it, Kheengz loses money on every online sale.
-  My view: the vendor's payout = sale − gateway fee − Kheengz's commission, shown line by line on each payout
-  (how Jumia and Stripe-based marketplaces do it). The alternative is a buyer service fee shown at checkout.
-  OlyCash already takes a `fee_paid_by` setting (buyer or merchant).
+- **Gateway fee:** taken from the vendor's payout (settled in D22).
 
 ### D14. Pay on delivery: commission owed, products hidden when unpaid
 - **Decision:** a vendor's pay-on-delivery sales (and any sale outside our gateways) add the commission to what
@@ -151,3 +145,45 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 - **Decision:** no VAPID keys for now; push notifications in the browser are not needed for the MVP. SMS and
   in-app notifications carry the messages.
 - **Why:** "web push keys are optional, they're not needed".
+
+### D19. Shops are customisable and shaped by their type (top priority)
+- **Decision:** every shop has its own look and its own address, and a **shop type** (Household & plastics,
+  Hardware, Fresh produce, Fashion, General...) that changes how products are described, sold and laid out, not
+  only the colours. Vendors choose and arrange (brand, template, homepage sections); they never write code.
+- **Why:** "the shops should be customizable so that they all don't look the same ... a hardware shop shouldn't be
+  like a vegetable shop ... give all those priorities for our app to be very competitive".
+- **Detail and proposals (types, levels, guardrails, phasing):** `docs/plan-shop-identity-and-marketing.md`.
+
+### D20. Products can have video
+- **Decision:** vendors upload product videos (processed by us into light MP4s with a poster, played on tap) and
+  can show their existing TikToks on a product.
+- **Why:** "allow video uploads of products".
+- **Detail:** plan §4 (limits proposed: 90 seconds, 150 MB, 4 per product; to confirm).
+
+### D21. Marketing and sharing are built in
+- **Decision:** sharing to WhatsApp, TikTok, Facebook, Instagram and others from every product and shop, with link
+  previews, status/story cards and links that report where orders came from; promo videos, catalogue feeds and
+  resellers follow (plan §5, §7). Posting straight to TikTok waits for TikTok's audit of our app.
+- **Why:** "also marketing sharing to TikTok etc, we need to be able to think outside the box".
+
+### D22. Payouts go out right away; every fee comes from the vendor's share
+- **Decision:** as soon as a buyer's online payment succeeds, Kheengz pays the vendor's share out automatically,
+  no holding and no daily batch. The vendor's payout for a vendor order is:
+
+  `order total (items + delivery) − gateway fee − Kheengz commission (on items) − service fees − payout fee
+  − anything the vendor owes (D14)`
+
+  Example: basins UGX 45,000 + delivery 5,000 paid by MarzPay Mobile Money; gateway 3% = 1,500; commission at
+  0.5% of 45,000 = 225; payout fee 1,000 → **UGX 47,275** to the vendor's number. Each payout lists these lines for
+  the vendor.
+- **Why:** "take it from vendor, correct" and "payouts automatic ... fast, right away, why would you need to hold
+  someone's money ... it's his shop, they need to feel a similar experience as having a physical shop".
+- **What follows:**
+  - Paid from the wallet that collected the money (MarzPay or OlyCash, Mobile Money); bank accounts through
+    MarzPay. MarzPay allows only one bank transfer pending at a time, so bank payouts queue one after another and
+    can take a little longer than Mobile Money.
+  - A payout that fails (wrong number, provider down) is retried; the vendor is told and the money shows as due to
+    them until it lands. No payout is ever sent twice (locked and idempotent, like payments).
+  - A refund after the money went out becomes what the vendor owes, recovered from their next payouts, and past
+    the limit their products hide until it is paid (D14).
+  - Minimums: MarzPay pays out from UGX 500 to Mobile Money and UGX 2,500 to banks.

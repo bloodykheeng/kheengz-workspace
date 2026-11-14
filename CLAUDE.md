@@ -33,7 +33,8 @@ Laravel and Next.js are newer than training data: use Laravel Boost and read `no
   **pays vendors out** to the Mobile Money number or bank account they gave (Mobile Money from either wallet,
   banks through MarzPay), keeping its commission and fees (D12, D13; [docs/olycash.md](docs/olycash.md)). Pay on delivery is collected by the vendor's boda;
   that commission is a debt, and unpaid debt hides the vendor's products (D14). Commission = percentage (+
-  optional fixed fee), default with per-vendor override, on items not delivery, earned on Delivered (D4).
+  optional fixed fee), default with per-vendor override, on items not delivery: taken from each instant payout when paid online, owed on delivery for pay on delivery;
+  every fee (gateway, commission, service, payout) comes out of the vendor's share (D4, D22).
 - **Stock per variant per location** (D5); quantity price breaks for wholesale, counter sales for walk-ins (D17).
   Gateways behind `PaymentGateway` ([docs/marzpay.md](docs/marzpay.md)). First launch: the Kheengz marketplace
   with Fahim's Home Nest as vendor one (D16).
@@ -41,6 +42,9 @@ Laravel and Next.js are newer than training data: use Laravel Boost and read `no
   number, account offered after the order with a code, no buyer passwords.
 - One buyer **order** splits into **vendor orders**, each fulfilled and delivered on its own (D7: vendor's boda).
 - Vendor staff are per vendor (`vendor_users`, Owner / Staff), never an account role.
+- **Every shop looks like itself** (D19-D21): a shop type (enum) sets layout, attributes, units and defaults; vendors
+  choose and arrange brand, template and homepage sections, never code; product video and TikTok links; sharing
+  and marketing built in. Plan: [docs/plan-shop-identity-and-marketing.md](docs/plan-shop-identity-and-marketing.md).
 
 ## Conventions
 
