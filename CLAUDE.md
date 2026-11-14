@@ -30,8 +30,8 @@ Laravel and Next.js are newer than training data: use Laravel Boost and read `no
 
 - Every installation has **vendors**; single vendor edition = one vendor, vendor screens hidden (D2).
 - **Kheengz collects online payments** in its own MarzPay / OlyCash accounts (the buyer picks the gateway, D15) and
-  **pays vendors out** to the Mobile Money number or bank account they gave, from the MarzPay wallet (OlyCash
-  cannot pay out), keeping its commission and fees (D12, D13). Pay on delivery is collected by the vendor's boda;
+  **pays vendors out** to the Mobile Money number or bank account they gave (Mobile Money from either wallet,
+  banks through MarzPay), keeping its commission and fees (D12, D13; [docs/olycash.md](docs/olycash.md)). Pay on delivery is collected by the vendor's boda;
   that commission is a debt, and unpaid debt hides the vendor's products (D14). Commission = percentage (+
   optional fixed fee), default with per-vendor override, on items not delivery, earned on Delivered (D4).
 - **Stock per variant per location** (D5); quantity price breaks for wholesale, counter sales for walk-ins (D17).

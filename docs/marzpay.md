@@ -82,5 +82,5 @@ So, per D12, **Kheengz's one account collects** every online payment and **pays 
 - Payouts need the API disbursement permission and the **server's IP whitelisted** in MarzPay.
 - Each payout costs a flat fee (§5), so payouts are batched (D12's proposal: one a day per vendor).
 - Only one bank transfer can be pending at a time: bank payouts go out one after another from a queue job.
-- OlyCash collects but cannot pay out, so OlyCash takings are moved into the MarzPay wallet by the Admin
-  before they can fund payouts.
+- OlyCash can pay out to Mobile Money too (`docs/olycash.md`), so each wallet funds payouts from its own
+  takings; bank payouts go through MarzPay (OlyCash needs bank payees added by hand).

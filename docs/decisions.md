@@ -100,9 +100,11 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 - **Why:** "making vendors need to have MarzPay is vague, it's me who will have MarzPay, other people will just
   provide their mobile money numbers or banks where money will go direct ... that's more smooth".
 - **Consequences:**
-  - Payouts always leave from the **MarzPay wallet**: OlyCash has no payout API (GiftNest `docs/payments.md`),
-    so money OlyCash collects has to be moved to MarzPay by the Admin. The dashboard shows what each gateway holds
-    against what is owed to vendors.
+  - **Each gateway pays out from its own takings**: Mobile Money payouts through MarzPay (`send-money`) or OlyCash
+    (`/money/pay`), from whichever wallet holds the vendor's money; **bank payouts through MarzPay**, because
+    OlyCash needs every bank payee added by hand in its admin first. MarzPay and OlyCash "work hand in hand"
+    (bloodykheeng): if one wallet runs short, the other covers. The dashboard shows each wallet's balance against
+    what is owed to vendors. Detail: `docs/olycash.md`, `docs/marzpay.md`.
   - Kheengz now holds buyers' money until it is paid out: a ledger per vendor (GiftNest's `transactions`), every
     payout a row, reconciled against MarzPay's `GET /transactions`.
 - **Proposed, to confirm:** *when* the money goes out. My view: **automatically once a day**, the vendor's balance
