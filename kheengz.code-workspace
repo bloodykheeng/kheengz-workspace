@@ -1,0 +1,13 @@
+{
+  "folders": [
+    { "name": "kheengz-workspace", "path": "." },
+    { "name": "kheengz-laravel", "path": "kheengz-laravel" },
+    { "name": "kheengz-nextjs", "path": "kheengz-nextjs" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "kheengz-laravel": true,
+      "kheengz-nextjs": true
+    }
+  }
+}
