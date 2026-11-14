@@ -41,7 +41,8 @@ Laravel and Next.js are newer than training data: use Laravel Boost and read `no
 - Buyers need **no account**: Buy now or cart, one-page checkout, phone is the identity, track by phone + order
   number, account offered after the order with a code, no buyer passwords.
 - One buyer **order** splits into **vendor orders**, each fulfilled and delivered on its own (D7: vendor's boda).
-- Vendor staff are per vendor (`vendor_users`, Owner / Staff), never an account role.
+- Vendor staff are per vendor (`vendor_users`, Owner / Staff), never an account role. Single vendor edition: two
+  roles (Admin, Staff), no subdomains (D26). Commission 3% by default (D23). Counter sales, no commission (D27).
 - **Every shop looks like itself** (D19-D21): a shop type (enum) sets layout, attributes, units and defaults; vendors
   choose and arrange brand, template and homepage sections, never code; product video and TikTok links; sharing
   and marketing built in. Plan: [docs/plan-shop-identity-and-marketing.md](docs/plan-shop-identity-and-marketing.md).

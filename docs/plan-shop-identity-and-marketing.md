@@ -56,7 +56,7 @@ image and video sizes are enforced; a preview before publishing; one click back 
 
 ## 4. Product video
 
-- **Upload:** up to 4 videos per product, vertical (9:16) or wide, **up to 90 seconds and 150 MB** (to confirm),
+- **Upload:** up to 4 videos per product, vertical (9:16) or wide, **up to 300 MB each, any length** (D25),
   MP4 / MOV / WebM, from the phone's gallery or camera.
 - **Processing (queue job, ffmpeg):** keep the original; make a 720p and a 480p H.264 MP4 and a poster image;
   never served until ready ("Processing" shows on the product meanwhile). Files in object storage (e.g. Cloudflare
@@ -106,15 +106,14 @@ image and video sizes are enforced; a preview before publishing; one click back 
 
 | Phase | Shop identity | Video | Marketing |
 | --- | --- | --- | --- |
-| **1 (MVP)** | Shop types: Household & plastics, Hardware, Fresh produce, Fashion, General. Brand, homepage sections, `<shop>.kheengz.com` | Upload + processing + poster; TikTok links | Share sheet, link previews, status card image, QR poster, source-tagged links |
-| **2** | Electronics type, template variants, own domains | Shoppable reels with product tags | Promo video maker, catalogue feeds, flash sales, coupons, bundles, resellers, AI listing from a photo |
+| **1 (MVP)** | Shop types (D24): Household & home, Electronics & phones, Groceries & fresh produce, Fashion & beauty, Hardware & building, General. Brand, homepage sections, `<shop>.kheengz.com` | Upload + processing + poster; TikTok links | Share sheet, link previews, status card image, QR poster, source-tagged links |
+| **2** | Template variants, own domains | Shoppable reels with product tags | Promo video maker, catalogue feeds, flash sales, coupons, bundles, resellers, AI listing from a photo |
 | **3** | More types as clients ask | Streaming service | Direct posting to TikTok (after audit), order from a list |
 
 ## Questions
 
-1. The first shop types: the five in Phase 1 above, or others you see in Kampala first?
-2. Video limits: 90 seconds and 150 MB per video, 4 per product?
-3. Shop address format `homenest.kheengz.com`?
+Settled 15 Nov 2026: first shop types (D24), video limits (D25), `<shop>.kheengz.com` in the marketplace and no
+subdomain in the single vendor edition (D26).
 
 ## Sources
 

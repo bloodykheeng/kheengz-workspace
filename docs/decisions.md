@@ -111,8 +111,8 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 - **When:** right away, after each payment (settled in D22).
 
 ### D13. Fees: a commission on each sale, plus service fees (refines D4)
-- **Decision:** Kheengz deducts a **percentage of each sale** (set by the Admin; "0.g%" in the message, exact
-  figure to set) plus optional **service fees**. Per-vendor rates override the default (D4).
+- **Decision:** Kheengz deducts a **percentage of each sale** plus optional **service fees**. Per-vendor rates
+  override the default (D4). The figures are set in D23.
 - **Why:** "we shall deduct a percentage on transactions ie 0.g% also things like service fees etc".
 - **Gateway fee:** taken from the vendor's payout (settled in D22).
 
@@ -137,8 +137,8 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 
 ### D17. Wholesale and walk-in customers
 - **Decision:** a variant can have **quantity price breaks** (e.g. 1 to 11 at one price, 12 and more cheaper; a
-  dozen or a bale as a unit). Proposed: a **counter sale** screen in the vendor dashboard so walk-in sales take
-  stock off the right location, with no commission (Kheengz did not bring that buyer).
+  dozen or a bale as a unit). A **counter sale** screen in the vendor dashboard records walk-in sales (settled in
+  D27).
 - **Why:** "Fahim does wholesale but also walk-ins ... people who come at the shop and buy one by one".
 
 ### D18. Web push is optional
@@ -187,3 +187,56 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
   - A refund after the money went out becomes what the vendor owes, recovered from their next payouts, and past
     the limit their products hide until it is paid (D14).
   - Minimums: MarzPay pays out from UGX 500 to Mobile Money and UGX 2,500 to banks.
+
+### D23. Commission 3% by default; no listing or monthly fees at launch (delegated, from the market)
+- **Decision:**
+  - **Commission: 3% of the items' total** by default (not on delivery), with a per-vendor rate (D4). bloodykheeng
+    can give founding vendors their own rate, Fahim's Home Nest included (0.5% if he wants it for him).
+  - **Service fee: a fixed amount per vendor order, UGX 0 at launch**, which the Admin can switch on later.
+  - **No listing fees and no monthly fees** at launch; vendor plans with a monthly fee come in Phase 2 (CS-Cart).
+- **Why:** "something like 0.5 but you can search online and see what's suitable and we go with that". What
+  the market charges (15 Nov 2026): Jumia Uganda 5% to 20% by category (fashion 20% plus UGX 2,000 an order,
+  paid out later); Kilimall 5% to 15%, paid monthly; Etsy 6.5%; Amazon 8% to 15%. 0.5% of a UGX 50,000 order is
+  UGX 250, less than the SMS, storage and server time that order costs us. 3% keeps Kheengz alive and still far
+  below Jumia and Kilimall. With MarzPay's 3% and a payout fee, an online sale costs the vendor about 6% to 8% in
+  all, paid out **at once** (D22) instead of monthly; a pay-on-delivery sale costs just the 3%.
+- **Sources:** [Jumia Uganda vendor hub](https://vendorhub.jumia.ug/?p=9543),
+  [Jumia 2026 cost table](https://vendor.jumia.com/?p=1128),
+  [DHL Kenya on marketplace commissions](https://www.dhl.com/discover/en-ke/e-commerce-advice/e-commerce-best-practice/when-is-it-time-for-your-own-online-store-),
+  [Marketplace fees compared 2026](https://sellerprofit.pages.dev/blog/marketplace-fees-compared-2026) (third-party).
+
+### D24. The first shop types (delegated, from what sells in Uganda)
+- **Decision:** Phase 1 ships six: **Household & home** (plastics, kitchen, appliances: Home Nest),
+  **Electronics & phones**, **Groceries & fresh produce**, **Fashion & beauty**, **Hardware & building**, and
+  **General** for anything else.
+- **Why:** "you can search online" for the first shop types. Electronics is the largest online category in
+  Uganda (about 23% of e-commerce revenue, ECDB), so it moves up from Phase 2; Jumia Uganda's biggest campaigns lead
+  with smartphones, home appliances, groceries and fashion; hardware was named by bloodykheeng.
+- **Sources:** [ECDB: e-commerce in Uganda](https://ecdb.com/resources/sample-data/market/ug/all),
+  [Jumia Black Friday 2025 (AllAfrica)](https://allafrica.com/stories/202510310481.html).
+
+### D25. Product videos: limited by size, not length
+- **Decision:** no limit on seconds. Each video up to **300 MB**, up to 4 per product. Uploads go **straight to
+  storage in parts that resume** after a dropped connection (not through PHP's upload limit), then we make the
+  light versions (D20). The size is one config value, so it can be raised.
+- **Why:** "let's not limit seconds but MBs". 300 MB is a few minutes of phone video at 1080p.
+
+### D26. Single vendor edition: its own domain, two roles
+- **Decision:**
+  - **Marketplace:** each vendor's shop at `<shop>.kheengz.com` (own domain later, D19).
+  - **Single vendor edition:** no subdomains. The shop is the whole site on the owner's domain, whether we host it
+    or they host the software themselves.
+  - **Roles, single vendor:** two. **Admin** (the owner: everything, settings and money included) and **Staff**
+    (products, stock, orders, counter sales; no settings, payouts or staff). Under the hood the Admin is also the
+    one vendor's Owner (D2).
+  - **Roles, marketplace:** Admin (Kheengz), Vendor Owner and Vendor Staff (per vendor, `vendor_users`). Buyers
+    need no account. Riders come later.
+- **Why:** "if it's single vendor then no subdomain needed, cause sometimes one may need to host it themselves or
+  buy the software ... for single vendor you put there like 2 roles".
+
+### D27. Counter sales for walk-in customers
+- **Decision:** a vendor records an in-shop sale from a counter screen: pick products (scan or search), quantity,
+  paid by cash, Mobile Money to their own number, or a Mobile Money prompt through our gateway. Stock comes off
+  that shop's location, a receipt prints or goes by SMS. **No commission** (Kheengz did not bring that buyer); a
+  prompt through our gateway still carries the gateway fee (D22).
+- **Why:** "yah let Fahim be able to record in-shop sales too".

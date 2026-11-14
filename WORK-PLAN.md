@@ -35,6 +35,5 @@ render, all foundation tests green. Then Phase 1 starts with the data model in p
 
 ## Still to settle (bloodykheeng)
 
-1. The exact commission percentage, which service fees, and the unpaid-debt limit before products hide (D13, D14).
-2. Walk-in sales recorded through a counter sale screen (D17)?
-3. Shop identity: first shop types, video limits, `homenest.kheengz.com` (plan-shop-identity-and-marketing.md).
+1. How much a pay-on-delivery vendor may owe before their products hide (D14). Proposal: UGX 50,000, or any amount
+   unpaid for 14 days, changeable per vendor.
