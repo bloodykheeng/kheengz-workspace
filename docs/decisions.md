@@ -262,3 +262,17 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 - **Why:** "there are things we need to record on our clients, i.e. country, regions, IP etc".
 - **To do once per server:** `php artisan location:update` (about a minute, 120 MB), then the scheduler keeps it fresh.
 - **Detail:** `kheengz-laravel/docs/visitor-origin.md`.
+
+### D30. The web app: static pages, the session read in the browser
+- **Decision:** keep Next 16.4's Cache Components (on from `create-next-app`): every page, storefront and
+  dashboard, is prerendered into a static shell that opens at once. The server never reads the session
+  cookies; `proxy.ts` guards `/dashboard` from them before render, and the dashboard reads the session and
+  the theme in the browser behind a loading cover. Only `/dashboard` needs a session: every other path is the
+  storefront, open to all (an unknown path shows Page not found, never a seller's sign-in). PrimeReact's
+  theme loads only on dashboard and sign-in pages, inside a CSS cascade layer, so storefront pages never
+  download it.
+- **Why:** buyers are on phones and mobile data, so storefront pages must load from the shell; reading the
+  session on the server (GiftNest's way) would make every page wait on the request, and Next would refuse
+  instant navigation into the dashboard. Nothing on a dashboard page needs the server to know the user: the
+  data is fetched in the browser and the API checks every request.
+- **Detail:** `kheengz-nextjs/docs/sessions-and-cache-components.md`.

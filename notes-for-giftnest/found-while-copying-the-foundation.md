@@ -43,3 +43,25 @@ top (date, commits, what was decided, what did not apply).
 ## 5. Small
 
 - `config/activitylog.php`'s retention comment still describes SDS's "ANNUAL inspections".
+
+## 6. Found while copying the web foundation
+
+- **Lint rules switched off.** `eslint.config.mjs` turns off `no-explicit-any`, `set-state-in-effect` and
+  `no-css-tags`, and two files carry `eslint-disable` for `exhaustive-deps`. Kheengz runs the full rule set:
+  58 problems fixed at the source (typed errors as `AxiosError<ApiErrorBody>`, `useResetWhen` /
+  `useResetOnOpen` for state that follows a value, `useSyncExternalStore` for browser reads, `useEffectEvent`
+  in ExportDialog). See `kheengz-nextjs/docs/dashboard-patterns.md` section 10.
+- **`xlsx` 0.18.5 from npm.** SheetJS stopped publishing to npm; 0.18.5 has known advisories (prototype
+  pollution, ReDoS). Kheengz installs `https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz`.
+- **Login types say `user: { data: UserResource }`; the API sends `user` flat** (a JsonResource nested in
+  a plain `response()->json` is not wrapped). GiftNest's RowForm reads both shapes to cope; the types should
+  say what the API sends.
+- **`proxy.ts` sends any unlisted path to /login when signed out**, so a mistyped public link shows a sign-in
+  page instead of Page not found.
+- **Cookie and storage names:** the theme cookie is plain `theme` (shared by every app on localhost), and
+  `lib/rememberedAccount.ts` stores under `sds_remembered_account`.
+- **Dead SDS code:** `lib/queryKeys.ts`, `hooks/useRealtimeResource.ts`, `hooks/useChannel.ts` and
+  `lib/liveRefresh.ts` are imported by nothing; `lib/echo.ts` still routes SDS's visitor-chat presence
+  channel; `UserMenu` keeps an always-empty "Assigned scope" block; `AppSidebar` gates on SDS capabilities.
+- **The root layout reads cookies** (theme, session). Fine without Cache Components; with them on (Next 16.4's
+  default) it makes every page dynamic. Kheengz's way: `kheengz-nextjs/docs/sessions-and-cache-components.md`.

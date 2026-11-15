@@ -23,7 +23,7 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
       keys with the foundation.
 - [x] `kheengz-nextjs` from `create-next-app@latest` (16.4.6), web packages installed (PrimeReact held at 10: D11),
       `lib/firebase.ts`, type check clean
-- [x] Git: three repos on `main` with their GitHub remotes (nothing committed yet)
+- [x] Git: three repos with their GitHub remotes; work on `farouk` (first commits on `main`)
 - [x] Firebase dev / prod keys set and validated (D10)
 - [x] ~~VAPID keys~~: web push is optional, not in the MVP (D18)
 - [ ] `.env.example` additions as modules land (MarzPay and OlyCash keys, SMS)
@@ -32,15 +32,20 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
       reset by email and SMS, users, roles (Admin, Staff, Vendor), notifications bell, queues admin, activity
       logs, buyer rate limits, `SerialCounter` from Alpha (never reuses a number), Kheengz-branded emails in
       the Royal colours, 36 routes. Pint clean, Larastan level 5 with 0 errors and no baseline, 35 tests pass.
-- [ ] **Web foundation from GiftNest**: dashboard shell (Admin, Staff, Vendor), sign-in pages, standard table,
-      Filters, Export, skeletons, notifications bell, users / roles / queues / activity log screens, e2e setup;
-      the dashboard footer links "IP Geolocation by DB-IP" (D29, its licence)
+- [x] **Web foundation from GiftNest** (15 Nov 2026): dashboard shell (Admin, Staff, Vendor), sign-in and reset,
+      standard table, Filters, Export (SheetJS 0.20.3 from its CDN), notifications bell, users / roles / queues /
+      audit trail screens (with a Where column and the DB-IP credit, D29), profile, a storefront home, Playwright.
+      Every page prerendered static with Cache Components; the session read in the browser only; PrimeReact's
+      theme in a cascade layer and never on the storefront (D30). Type check, ESLint with no rule switched off,
+      `next build` and 13 browser tests pass; no console or hydration errors.
 - [x] API docs started from GiftNest's and Alpha's, trimmed to what applies (`kheengz-laravel/docs/README.md`)
-- [ ] Web docs (dashboard patterns, e2e, printing)
+- [x] Web docs (`kheengz-nextjs/docs/README.md`: sessions and Cache Components, dashboard patterns, e2e).
+      Printing comes with receipts (Phase 1)
 
-**Stop point:** both apps run, sign-in works with Admin seeded, the dashboard shell and an empty storefront home
-render, all foundation tests green. Then Phase 1 starts with the data model in plain words for sign-off.
+**Stop point (reached 15 Nov 2026):** both apps run, sign-in works with Admin seeded, the dashboard shell and an
+empty storefront home render, all foundation tests green. Then Phase 1 starts with the data model in plain words
+for sign-off.
 
 ## Still to settle (bloodykheeng)
 
-Nothing open: every question so far is settled in `docs/decisions.md` (D1-D28).
+Nothing open: every question so far is settled in `docs/decisions.md` (D1-D30).
