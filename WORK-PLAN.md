@@ -27,13 +27,20 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
 - [x] Firebase dev / prod keys set and validated (D10)
 - [x] ~~VAPID keys~~: web push is optional, not in the MVP (D18)
 - [ ] `.env.example` additions as modules land (MarzPay and OlyCash keys, SMS)
-- [ ] GiftNest foundation copied and renamed, with its tests passing here
-- [ ] Docs per app (`docs/*.md`) started from GiftNest's, renamed and trimmed to what applies
+- [x] **API foundation from GiftNest** (15 Nov 2026): ULID users and permission tables, audit trail with
+      visitor origin (D29: DB-IP City Lite), sign-in by email / phone / username, email codes, password
+      reset by email and SMS, users, roles (Admin, Staff, Vendor), notifications bell, queues admin, activity
+      logs, buyer rate limits, `SerialCounter` from Alpha (never reuses a number), Kheengz-branded emails in
+      the Royal colours, 36 routes. Pint clean, Larastan level 5 with 0 errors and no baseline, 35 tests pass.
+- [ ] **Web foundation from GiftNest**: dashboard shell (Admin, Staff, Vendor), sign-in pages, standard table,
+      Filters, Export, skeletons, notifications bell, users / roles / queues / activity log screens, e2e setup;
+      the dashboard footer links "IP Geolocation by DB-IP" (D29, its licence)
+- [x] API docs started from GiftNest's and Alpha's, trimmed to what applies (`kheengz-laravel/docs/README.md`)
+- [ ] Web docs (dashboard patterns, e2e, printing)
 
 **Stop point:** both apps run, sign-in works with Admin seeded, the dashboard shell and an empty storefront home
 render, all foundation tests green. Then Phase 1 starts with the data model in plain words for sign-off.
 
 ## Still to settle (bloodykheeng)
 
-1. How much a pay-on-delivery vendor may owe before their products hide (D14). Proposal: UGX 50,000, or any amount
-   unpaid for 14 days, changeable per vendor.
+Nothing open: every question so far is settled in `docs/decisions.md` (D1-D28).
