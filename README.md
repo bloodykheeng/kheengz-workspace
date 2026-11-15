@@ -11,14 +11,14 @@ the decisions and the session handoffs. **No application code lives here.**
 | [kheengz-laravel](https://github.com/bloodykheeng/kheengz-laravel) | `kheengz-laravel/` | Laravel 13.42, PHP 8.4, Sanctum, Reverb, Spatie permission 8 / activitylog 5 / query-builder 7, Scramble, kreait Firebase, Pest 5, Larastan 3, Boost 2 | http://localhost:8000 |
 | [kheengz-nextjs](https://github.com/bloodykheeng/kheengz-nextjs) | `kheengz-nextjs/` | Next.js 16.4.6, React 19.3, TanStack Query 5, react-hook-form + zod 4, PrimeReact 10, Tailwind 4, laravel-echo, Firebase 13, Playwright | http://localhost:3000 |
 
-Branch `main` in all three. Read [CLAUDE.md](CLAUDE.md) first, then [WORK-PLAN.md](WORK-PLAN.md) and
+Work happens on branch **`farouk`** in all three (`main` holds only the first commits). Read [CLAUDE.md](CLAUDE.md) first, then [WORK-PLAN.md](WORK-PLAN.md) and
 [docs/decisions.md](docs/decisions.md).
 
 ```bash
-git clone https://github.com/bloodykheeng/kheengz-workspace.git kheengz-workspace
+git clone -b farouk https://github.com/bloodykheeng/kheengz-workspace.git kheengz-workspace
 cd kheengz-workspace
-git clone https://github.com/bloodykheeng/kheengz-laravel.git kheengz-laravel
-git clone https://github.com/bloodykheeng/kheengz-nextjs.git kheengz-nextjs
+git clone -b farouk https://github.com/bloodykheeng/kheengz-laravel.git kheengz-laravel
+git clone -b farouk https://github.com/bloodykheeng/kheengz-nextjs.git kheengz-nextjs
 ```
 
 Then open `kheengz.code-workspace`.
@@ -35,6 +35,7 @@ cp .env.example .env          # then fill FIREBASE_* (kheengz-dev) and MarzPay s
 php artisan key:generate
 mysql -uroot -e "CREATE DATABASE kheengz CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
 php artisan migrate --seed
+php artisan location:update   # DB-IP City Lite for visitor places (about a minute, 120 MB)
 
 # Web
 cd ../kheengz-nextjs

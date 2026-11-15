@@ -63,6 +63,7 @@ Next, every list paged (5 per page) with state in the URL, every write confirmed
 
 ## Working here
 
-Commit and push only when asked, in the repo the change belongs to. Every settled point goes into
+Work on the branch **`farouk`** in all three repos, never on `main` (`main` holds only the first commits, as in
+GiftNest and Alpha). Commit and push only when asked, in the repo the change belongs to. Every settled point goes into
 `docs/decisions.md` the same turn; docs are updated with the change they describe. `/handoff` writes
 `.claude/handoffs/<date>-<title>.md`; `/handoffpass` resumes.
