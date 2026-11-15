@@ -65,3 +65,11 @@ top (date, commits, what was decided, what did not apply).
   channel; `UserMenu` keeps an always-empty "Assigned scope" block; `AppSidebar` gates on SDS capabilities.
 - **The root layout reads cookies** (theme, session). Fine without Cache Components; with them on (Next 16.4's
   default) it makes every page dynamic. Kheengz's way: `kheengz-nextjs/docs/sessions-and-cache-components.md`.
+- **`nextjs-toploader/app`'s `useRouter` reads `usePathname()` while rendering.** With Cache Components on,
+  that keeps the dashboard shell of any page with an id in its address out of the prerender, and `next build`
+  fails ("usePathname() ... outside of `<Suspense>`"). The same goes for `TanstackContext` and
+  `SidebarContext` watching the pathname, and `handleApiError` taking it as a dependency. Kheengz:
+  `hooks/useAppRouter.ts` and `kheengz-nextjs/docs/dashboard-patterns.md` section 16.
+- **`Field` labels are not linked to their controls** (no `htmlFor`, no wrapping), so screen readers do not
+  name the inputs and tests cannot use `getByLabel`. Kheengz's `Field` wraps the control when no `htmlFor`
+  is given.

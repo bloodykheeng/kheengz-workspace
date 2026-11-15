@@ -8,7 +8,7 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
 | Phase | What ships | Status |
 | --- | --- | --- |
 | **0. Foundation** | Workspace; Laravel 13 API and Next.js 16 app from the official installers; core packages installed and published; GiftNest foundation copied (ULIDs, audit trail, enums, serial counters, OTP, queues, Reverb, roles, dashboard shell, standard table, e2e) | done (15 Nov 2026) |
-| **1. MVP** | Shop types, brand, homepage sections and `<shop>.kheengz.com` (D19); product video and TikTok links (D20); share sheet, link previews, status cards, QR posters, source-tagged links (D21); shop profile and brand tokens; vendors with their payout number or bank account; categories; products, variants, photos; stock per location; storefront (home, category, search, product, cart, Buy now, one-page checkout); MarzPay and OlyCash (buyer picks) + pay on delivery; order tracking by phone; orders split per vendor; vendor delivery areas and riders; instant payouts with fees taken from the vendor's share (D22); what vendors owe from pay on delivery, and hiding unpaid shops (D14); SMS; admin and vendor dashboards | **in progress**: data model awaiting sign-off ([docs/plan-data-model.md](docs/plan-data-model.md)) |
+| **1. MVP** | Shop types, brand, homepage sections and `<shop>.kheengz.com` (D19); product video and TikTok links (D20); share sheet, link previews, status cards, QR posters, source-tagged links (D21); shop profile and brand tokens; vendors with their payout number or bank account; categories; products, variants, photos; stock per location; storefront (home, category, search, product, cart, Buy now, one-page checkout); MarzPay and OlyCash (buyer picks) + pay on delivery; order tracking by phone; orders split per vendor; vendor delivery areas and riders; instant payouts with fees taken from the vendor's share (D22); what vendors owe from pay on delivery, and hiding unpaid shops (D14); SMS; admin and vendor dashboards | **in progress**: step 1 of 7 done (16 Nov 2026); see the Phase 1 checklist |
 | **2. Grow** | Promo video maker, catalogue feeds, shoppable reels, own domains, resellers, AI listing from a photo (plan-shop-identity-and-marketing.md); coupons, reviews, wishlist, Meilisearch, vendor plans, card payments, returns, WhatsApp order button, pickup points | |
 | **3. Mobile and scale** | Expo app (buyer, then vendor); hosted multi-shop (tenancy); suppliers and purchase orders; same product from several vendors | |
 
@@ -46,7 +46,25 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
 empty storefront home render, all foundation tests green. Then Phase 1 starts with the data model in plain words
 for sign-off.
 
+## Phase 1 checklist
+
+Built in the order of [docs/plan-data-model.md](docs/plan-data-model.md) section 10 (agreed 15 Nov 2026, D31-D35).
+Each step ships with its screens, tests and docs before the next starts.
+
+- [x] **1. Vendors and shops** (16 Nov 2026). API: vendors, papers, members, payout destinations (Mobile Money
+      checked by MarzPay's name lookup, banks by `bank-transfer/validate`, both against the owner's name), shops
+      with their own review, locations, platform settings (`kheengz-laravel/docs/vendors-and-shops.md`).
+      Web: Sell on Kheengz (`/sell`), My business, the shop workspace, vendor review, shops list, platform
+      settings; the dashboard shell keeps URL reads out of its prerender (`useAppRouter`). Tests: 75 Pest,
+      17 Playwright including the whole seller journey.
+- [ ] **2. Catalogue**: categories and requests, attributes, units, shop sections; products, variants, price
+      breaks, photos
+- [ ] **3. Stock** levels and movements
+- [ ] **4. Shop look** and homepage sections; the storefront pages
+- [ ] **5. Orders**: buyers, addresses, delivery areas, riders; orders, shop orders, items, status changes
+- [ ] **6. Money**: shop payment methods, payments, payouts, the shop ledger, debt and hiding
+- [ ] **7. Counter sales**; SMS; product video and TikTok links
+
 ## Still to settle (bloodykheeng)
 
-Sign-off of the Phase 1 data model as a whole ([docs/plan-data-model.md](docs/plan-data-model.md)); its choices are
-settled (D31-D35). Everything is in `docs/decisions.md` (D1-D35).
+Nothing open. Everything is in `docs/decisions.md` (D1-D35).
