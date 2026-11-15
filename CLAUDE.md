@@ -40,7 +40,8 @@ Laravel and Next.js are newer than training data: use Laravel Boost and read `no
   with Fahim's Home Nest as vendor one (D16).
 - Buyers need **no account**: Buy now or cart, one-page checkout, phone is the identity, track by phone + order
   number, account offered after the order with a code, no buyer passwords.
-- One buyer **order** splits into **vendor orders**, each fulfilled and delivered on its own (D7: vendor's boda).
+- A **vendor** (verified once) runs one or more **shops**, each approved on its own (D31). One buyer **order** splits
+  into **shop orders**, each fulfilled and delivered on its own (D7: the shop's boda), each paid its own way (D34).
 - Vendor staff are per vendor (`vendor_users`, Owner / Staff), never an account role. Single vendor edition: two
   roles (Admin, Staff), no subdomains (D26). Commission 3% by default (D23). Counter sales, no commission (D27).
 - **Every shop looks like itself** (D19-D21): a shop type (enum) sets layout, attributes, units and defaults; vendors

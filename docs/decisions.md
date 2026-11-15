@@ -244,7 +244,7 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
 ### D28. When an unpaid balance hides a vendor's products
 - **Decision:** a vendor's products stop showing when what they owe (commission on pay-on-delivery sales, refunds
   after payout) passes **UGX 50,000**, or when **any amount has been unpaid for 14 days**. Both limits can be set
-  per vendor. Products show again as soon as the balance is paid; the vendor is warned by SMS and in the
+  per shop, and only the shop that owes is hidden (D31). Products show again as soon as the balance is paid; the vendor is warned by SMS and in the
   dashboard before it happens.
 - **Why:** "I go with your suggestion" (UGX 50,000, or any amount left unpaid for 14 days, adjustable per vendor).
 
@@ -276,3 +276,50 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
   instant navigation into the dashboard. Nothing on a dashboard page needs the server to know the user: the
   data is fetched in the browser and the API checks every request.
 - **Detail:** `kheengz-nextjs/docs/sessions-and-cache-components.md`.
+
+### D31. A vendor can run many shops; each shop is approved on its own
+- **Decision:** a **vendor** (the person or business, verified once with their ID and payout account) can open
+  several **shops**. Every shop goes to the Admin for review before it can sell, and the Admin can suspend one
+  shop or the whole vendor. Payout destinations belong to the vendor; one whose name does not match the
+  vendor's verified name waits for the Admin. Each shop page names the verified vendor and their other shops.
+  Staff can be limited to some of the shops.
+- **Debt is per shop:** only the shop that owes is hidden (D28); the vendor's other shops keep selling. The
+  Admin sees what every shop owes and the vendor's total together, and a new shop's review shows what the
+  vendor's other shops owe.
+- **Why:** "a vendor can have many shops ... but each needs approval so that they don't just scam people".
+  Etsy allows several shops per seller, judges each on its own, requires the others to be disclosed and bans
+  duplicates; fraud guides tie every store to one verified owner and payout account. On debt: "we only hide
+  what is owing ... like an arcade in Uganda where you have 3 shops, they don't close all at once, they only
+  close the one they're demanding ... we can see all amounts from all ... let's be fair and real".
+
+### D32. Categories: the marketplace's list for finding, the shop's own sections for organising (delegated, from research)
+- **Decision:** two separate groupings. **Marketplace categories** are one tree the Admin keeps (with the
+  attributes that power filters); every product sits in the most specific one, and a vendor can ask for a missing
+  category from the product form. **Shop sections** are each shop's own groups with any names, a product in
+  none, one or several, used for the shop's menu and homepage. Vendors can also give their own products any
+  variant options (Size, Scent), not only the category's attributes.
+- **Why:** "every shop [should] make its own ... you can't know what someone has, but maybe the admin can have
+  theirs for filters and marketplace ... search online". Shopify (categories vs collections), Etsy (its category
+  list plus up to 20 shop sections) and Jumia (its own category list) all keep both.
+
+### D33. Stock held at ordering; the cart in the browser
+- **Decision:** stock is held the moment an order is placed and released if payment fails, the order is cancelled
+  or an online payment is not completed in time. The cart is kept in the buyer's browser in Phase 1; a server
+  cart (for reminder SMS) comes in Phase 2.
+- **Why:** "stock correct, cart correct".
+
+### D34. Every payment method a shop allows is offered; checkout splits per shop when they differ
+- **Decision:** the Admin switches gateways on for the platform; each shop switches on what it accepts (Mobile
+  Money and card through our gateways, pay on delivery limited by area and order value if it wants). The product
+  page and the cart show each shop's methods before checkout. When the shops in a cart differ, each shop's group
+  gets its own choice: the online part is paid with one Mobile Money prompt for its total, the rest to each shop's
+  rider, said plainly in the summary before confirming. One order number for all of it.
+- **Why:** "show all available, we shouldn't limit people ... give provision for people to enable or disable".
+  One cart cannot be both paid and unpaid, so either pay on delivery drops out of a mixed cart or the cart splits
+  before payment (Mercur); splitting per shop keeps every method a shop allows.
+
+### D35. New vendors: the Admin approves them once
+- **Decision:** a vendor is approved once by the Admin (name, ID, phone, payout number checked); each of their
+  shops is then reviewed on its own (D31), and an approved shop's products go live at once, which the Admin can
+  hide.
+- **Why:** "for new vendors you're right".
