@@ -240,3 +240,25 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
   that shop's location, a receipt prints or goes by SMS. **No commission** (Kheengz did not bring that buyer); a
   prompt through our gateway still carries the gateway fee (D22).
 - **Why:** "yah let Fahim be able to record in-shop sales too".
+
+### D28. When an unpaid balance hides a vendor's products
+- **Decision:** a vendor's products stop showing when what they owe (commission on pay-on-delivery sales, refunds
+  after payout) passes **UGX 50,000**, or when **any amount has been unpaid for 14 days**. Both limits can be set
+  per vendor. Products show again as soon as the balance is paid; the vendor is warned by SMS and in the
+  dashboard before it happens.
+- **Why:** "I go with your suggestion" (UGX 50,000, or any amount left unpaid for 14 days, adjustable per vendor).
+
+### D29. Record where visitors come from
+- **Decision:** every audit entry records the IP, country, region, city, coordinates, device, platform and
+  browser (the foundation, from GiftNest). Each **order** and vendor sign-up will also store the buyer's IP,
+  country, region, city, device, platform, browser and **how they arrived** (share-link source, referrer) as
+  plain columns, so reports count sales by place and by source. Places come from **DB-IP City Lite**, a database
+  file read on our own server: free with no account or key, no rate limit, no IP sent to a third party,
+  commercial use allowed (CC BY 4.0) with a link to DB-IP on pages that show places. Refreshed monthly by the
+  scheduler. Not ip-api.com (the package's default and Alpha's: free tier non-commercial, 45 lookups a minute,
+  plain HTTP). Not MaxMind GeoLite (first choice, dropped the same day after bloodykheeng checked MaxMind's
+  site: free terms cover a company's internal use only, and showing places to vendors needs the USD 10,000 a
+  year commercial licence).
+- **Why:** "there are things we need to record on our clients, i.e. country, regions, IP etc".
+- **To do once per server:** `php artisan location:update` (about a minute, 120 MB), then the scheduler keeps it fresh.
+- **Detail:** `kheengz-laravel/docs/visitor-origin.md`.
