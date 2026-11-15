@@ -44,7 +44,14 @@ Our phones are stored as digits with the country code and no "+" (`256712345678`
 
 - Mobile Money: `POST /send-money` (`amount`, `phone_number`, `reference` UUID, `country`; 500 to 10,000,000).
   **Check:** the created object is called `withdrawal` in one doc and `disbursement` in another.
-- Bank: `POST /bank-transfer/validate` (`bank_name`, `account_number` → `account_name`, `valid`), then
+- Bank: `POST /bank-transfer/validate` (`bank_name`, `account_number`). Success (their bank-transfer page, read
+  15 Nov 2026): `status: "success"`, `data {account_number, bank_name, bank_code, account_name, network,
+  is_registered, valid, status_code, status_description}`; `valid` is true only when `status_code` is 0 and
+  `is_registered` is "ACTIVE". A refused account answers 400 with `error_code: "VALIDATION_FAILED"`;
+  `BANK_NOT_SUPPORTED` and `SERVICE_NOT_AVAILABLE` mean the check could not be made. Banks: `GET
+  /bank-transfer/banks` → `data {banks: [{code, name, aliases}], count}` (25 banks; Stanbic `STANBIC` and
+  Stanchart `STAN` are different banks). Used by `App\Payments\MarzPay\MarzPayClient` for payout
+  destinations (kheengz-laravel docs/vendors-and-shops.md). Then
   `POST /bank-transfer` (`amount` ≥ 2,500, `description`, `bank_name`, `bank_account_number`). Banks:
   `GET /bank-transfer/banks`. Only **one** bank transfer may be pending at a time.
 - In our model (D3) payouts are rare: refunds to buyers, and later anything the marketplace pays out itself.
