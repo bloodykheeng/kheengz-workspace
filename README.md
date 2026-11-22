@@ -34,7 +34,8 @@ composer install
 cp .env.example .env          # then fill FIREBASE_* (kheengz-dev) and MarzPay sandbox keys: docs/environment-setup.md
 php artisan key:generate
 mysql -uroot -e "CREATE DATABASE kheengz CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-php artisan migrate --seed
+php artisan migrate --seed      # roles, the Admin, platform settings, the starting catalogue
+php artisan storage:link        # product and section photos are served from public/storage
 php artisan location:update   # DB-IP City Lite for visitor places (about a minute, 120 MB)
 
 # Web

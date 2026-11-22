@@ -323,3 +323,26 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
   shops is then reviewed on its own (D31), and an approved shop's products go live at once, which the Admin can
   hide.
 - **Why:** "for new vendors you're right".
+
+### D36. How the catalogue behaves (settled while building Phase 1 step 2)
+- **Decision:**
+  - **Attributes flow down the tree**: a category's products are described by its own attributes and its
+    parents' (Colour on Household reaches Basins). A vendor's own option that is named like one of those
+    List attributes ("colour") feeds its filter automatically, value by matching value.
+  - **Units are one platform list** the Admin keeps; each shop type offers its own first (in code,
+    `ShopType::suggestedUnits`), so a grocer sees kg and bunch before dozen.
+  - **A product is a Draft until it is fit for sale**: a photo, an offered variant, its category's required
+    details, a category that is on. Once it has been on sale it is **hidden, never deleted** (orders will
+    point at it). Vendors manage products in any shop status but Rejected and Closed, including while the
+    shop is reviewed or suspended.
+  - **Kheengz can take a product down** (D35's "the Admin can hide"): off sale with a reason, the shop told,
+    and the vendor cannot put it back until the Admin allows it again.
+  - **Photos are ours**: re-encoded to WebP (1600 px and 480 px), turned upright, every byte of metadata
+    stripped (a phone photo's GPS is often the vendor's home), at least 400 px, at most 10 per product. A
+    pasted link is copied once, only from public addresses.
+  - **Limits**: 4 category levels, 3 options and 100 variants per product, 5 price breaks per variant,
+    30 sections per shop.
+- **Why:** filters must work across shops without forcing vendors into the Admin's words (D32); a buyer on
+  mobile data should load small photos; nothing an order points at may vanish; "best practices, best user
+  experience". Limits follow Shopify (3 options), Etsy (20 sections, here 30) and Jumia (8+ photos, 500 px).
+  Detail: `kheengz-laravel/docs/catalogue.md`.

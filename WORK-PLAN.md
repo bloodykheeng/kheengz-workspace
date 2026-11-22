@@ -8,7 +8,7 @@ Phases build in dependency order. Decisions are in [docs/decisions.md](docs/deci
 | Phase | What ships | Status |
 | --- | --- | --- |
 | **0. Foundation** | Workspace; Laravel 13 API and Next.js 16 app from the official installers; core packages installed and published; GiftNest foundation copied (ULIDs, audit trail, enums, serial counters, OTP, queues, Reverb, roles, dashboard shell, standard table, e2e) | done (15 Nov 2026) |
-| **1. MVP** | Shop types, brand, homepage sections and `<shop>.kheengz.com` (D19); product video and TikTok links (D20); share sheet, link previews, status cards, QR posters, source-tagged links (D21); shop profile and brand tokens; vendors with their payout number or bank account; categories; products, variants, photos; stock per location; storefront (home, category, search, product, cart, Buy now, one-page checkout); MarzPay and OlyCash (buyer picks) + pay on delivery; order tracking by phone; orders split per vendor; vendor delivery areas and riders; instant payouts with fees taken from the vendor's share (D22); what vendors owe from pay on delivery, and hiding unpaid shops (D14); SMS; admin and vendor dashboards | **in progress**: step 1 of 7 done (16 Nov 2026); see the Phase 1 checklist |
+| **1. MVP** | Shop types, brand, homepage sections and `<shop>.kheengz.com` (D19); product video and TikTok links (D20); share sheet, link previews, status cards, QR posters, source-tagged links (D21); shop profile and brand tokens; vendors with their payout number or bank account; categories; products, variants, photos; stock per location; storefront (home, category, search, product, cart, Buy now, one-page checkout); MarzPay and OlyCash (buyer picks) + pay on delivery; order tracking by phone; orders split per vendor; vendor delivery areas and riders; instant payouts with fees taken from the vendor's share (D22); what vendors owe from pay on delivery, and hiding unpaid shops (D14); SMS; admin and vendor dashboards | **in progress**: steps 1 and 2 of 7 done (22 Nov 2026); see the Phase 1 checklist |
 | **2. Grow** | Promo video maker, catalogue feeds, shoppable reels, own domains, resellers, AI listing from a photo (plan-shop-identity-and-marketing.md); coupons, reviews, wishlist, Meilisearch, vendor plans, card payments, returns, WhatsApp order button, pickup points | |
 | **3. Mobile and scale** | Expo app (buyer, then vendor); hosted multi-shop (tenancy); suppliers and purchase orders; same product from several vendors | |
 
@@ -57,8 +57,13 @@ Each step ships with its screens, tests and docs before the next starts.
       Web: Sell on Kheengz (`/sell`), My business, the shop workspace, vendor review, shops list, platform
       settings; the dashboard shell keeps URL reads out of its prerender (`useAppRouter`). Tests: 75 Pest,
       17 Playwright including the whole seller journey.
-- [ ] **2. Catalogue**: categories and requests, attributes, units, shop sections; products, variants, price
-      breaks, photos
+- [x] **2. Catalogue** (22 Nov 2026). API: the Admin's category tree with attributes that flow down,
+      attributes, units (each shop type's first), category requests answered once, shop sections, products
+      saved whole (options, variants, price breaks, details; ids kept across edits), Draft until fit for
+      sale, hidden not deleted, taken down by Kheengz until allowed again; photos re-encoded to WebP with
+      metadata stripped, from uploads or links (`kheengz-laravel/docs/catalogue.md`, D36). A starting
+      catalogue is seeded. Web: Catalogue pages (categories, attributes, units, requests), each shop's
+      products, the product editor with photos and status. Tests: 109 Pest, 19 Playwright.
 - [ ] **3. Stock** levels and movements
 - [ ] **4. Shop look** and homepage sections; the storefront pages
 - [ ] **5. Orders**: buyers, addresses, delivery areas, riders; orders, shop orders, items, status changes
@@ -67,4 +72,4 @@ Each step ships with its screens, tests and docs before the next starts.
 
 ## Still to settle (bloodykheeng)
 
-Nothing open. Everything is in `docs/decisions.md` (D1-D35).
+Nothing open. Everything is in `docs/decisions.md` (D1-D36).
