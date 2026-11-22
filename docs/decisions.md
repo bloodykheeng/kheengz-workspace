@@ -346,3 +346,19 @@ detail lives. Once settled, a point is closed unless bloodykheeng reopens it.
   mobile data should load small photos; nothing an order points at may vanish; "best practices, best user
   experience". Limits follow Shopify (3 options), Etsy (20 sections, here 30) and Jumia (8+ photos, 500 px).
   Detail: `kheengz-laravel/docs/catalogue.md`.
+
+### D37. How stock behaves (settled while building Phase 1 step 3)
+- **Decision:**
+  - Stock is changed only through one service, each change a movement that keeps the figures after it;
+    movements are never edited or deleted (a mistake is corrected by another movement).
+  - Nothing goes below zero and holds never exceed what is on hand; holding an order's items is one locked,
+    checked step, so the last item is sold once (D33).
+  - A variant's stock can be **not counted** (made to order, fresh produce sold from what came in today):
+    it is never held or refused.
+  - Each variant can have a **low-stock line**; the shop is told in the bell when it falls to it and when it
+    runs out.
+  - What has stock history stays: a variant with movements is switched off rather than removed, a location
+    that held stock is not deleted, a draft with stock on the shelf is counted to zero before it is deleted.
+- **Why:** "stock correct" (D33): a vendor must be able to explain every figure, and an online order must never
+  take an item already sold over the counter or to another buyer. Detail: `kheengz-laravel/docs/stock.md`.
+
