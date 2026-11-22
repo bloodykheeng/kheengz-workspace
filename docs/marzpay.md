@@ -13,8 +13,16 @@ What we know about MarzPay's Merchant API, read on 15 Nov 2026 from its own docs
 
 - One base URL for sandbox and live: `https://wallet.wearemarz.com/api/v1`. The **business account's mode**
   decides sandbox or live (new accounts start in sandbox; sandbox responses say `"status": "sandbox"`).
-- HTTP Basic: `Authorization: Basic base64(api_key:api_secret)`.
-  **Check:** the bank-transfer page shows an `X-API-Key` header instead.
+- HTTP Basic: `Authorization: Basic base64(api_key:api_secret)`, on **every** endpoint. Settled 22 Nov 2026
+  from their OpenAPI spec: `security: [BasicAuth]` at the top level and no endpoint overrides it (bank
+  transfers included); their main docs page says the same. One code example on the bank-transfer page shows
+  `X-API-Key: your_api_key_here`; it is the odd one out, and we follow the spec. Held by
+  `PayoutDestinationTest` (Basic sent, no `X-API-Key`).
+- **Prove it on each machine:** `php artisan marzpay:check` makes one read (the bank list) with the keys in
+  `.env`. It says whether the keys work (401: wrong key or secret) and whether this server's IP is
+  whitelisted (403). Run it when the keys are first added and after any key or server change.
+- If MarzPay ever refuses our auth, no vendor is hurt: a bank account that cannot be checked (401, 403,
+  unreachable) is saved for the Admin to review, never refused.
 - **IP whitelisting** is required for balance, send money, bank transfer and account endpoints, and payouts need
   the API disbursement permission on the account. The server's IP must be added in the dashboard.
 
